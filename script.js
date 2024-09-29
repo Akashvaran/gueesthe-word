@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const words = ['TIGHTER', 'ROCKED', 'AKASH', 'MUTHU'];
+    const words = ['TIGER', 'APPLE', 'AKASH', 'MUTHU'];
+const hints = ['A large wild cat animal','A popular fruit','A common Indian male name','A common Tamil male name'];
     let currentWord;
+    let currentHint;
     let guessesRemaining = 5;
     let guessedLetters = [];
     let correctGuesses;
@@ -12,16 +14,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.getElementById('reset-btn');
     const exitBtn = document.getElementById('exit-btn');
     const messageContainer = document.getElementById('message-container');
+    const hintContainer = document.getElementById('hint-container');
 
     function selectRandomWord() {
         const randomIndex = Math.floor(Math.random() * words.length);
-        console.log(randomIndex)
+        currentHint = hints[randomIndex]; 
         return words[randomIndex];
     }
 
     function revealClueLetters() {
         const randomIndex = Math.floor(Math.random() * currentWord.length);
-        console.log(randomIndex)
         correctGuesses[randomIndex] = currentWord[randomIndex];
     }
 
@@ -56,9 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
         remainingGuessesEl.textContent = `You have ${guessesRemaining} guesses remaining.`;
 
         if (correctGuesses.join('') === currentWord) {
-            displayMessage('Congratulations! You guessed the word!');
+            displayMessage('Congratulations You guessed the word');
         } else if (guessesRemaining === 0) {
-            displayMessage(`Game over! You ran out of guesses. The word was: ${currentWord}`);
+            displayMessage(`Game over You ran out of guesses. The word was: ${currentWord}`);
         }
     }
 
@@ -69,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             checkGuess(guessedLetter);
         }
         else if (guessedLetters.includes(guessedLetter)) {
-            displayMessage('You already guessed that letter!');
+            displayMessage('You already guessed that letter');
         }
         else {
             displayMessage('Please enter a valid letter.');
@@ -88,10 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
         displayWord();
         remainingGuessesEl.textContent = `You have ${guessesRemaining} guesses remaining.`;
         messageContainer.textContent = '';
+        hintContainer.textContent = `Hint: ${currentHint}`;
     }
 
     exitBtn.addEventListener('click', () => {
         window.location.href = 'https://www.google.com';
     });
-    resetGame();
+    resetGame(); 
 });
+
